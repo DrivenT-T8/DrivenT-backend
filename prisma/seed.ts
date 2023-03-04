@@ -78,15 +78,6 @@ async function main() {
         updatedAt: dayjs().toDate(),
       },
     });
-    await prisma.ticketType.create({
-      data: {
-        name: "Presencial com hotel",
-        price: 60000,
-        isRemote: false,
-        includesHotel: true,
-        updatedAt: dayjs().toDate(),
-      },
-    });
   }
 
   let hotels = await prisma.hotel.findFirst();
