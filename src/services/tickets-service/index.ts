@@ -37,9 +37,9 @@ async function createTicket(userId: number, ticketTypeId: number) {
     status: TicketStatus.RESERVED
   };
 
-  await ticketRepository.createTicket(ticketData);
+  const ticket = await ticketRepository.createTicket(ticketData);
 
-  const ticket = await ticketRepository.findTicketByEnrollmentId(enrollment.id);
+  await ticketRepository.findTicketByEnrollmentId(enrollment.id);
 
   return ticket;
 }
