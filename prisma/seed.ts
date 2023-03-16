@@ -262,6 +262,169 @@ async function main() {
       ],
     });
   }
+
+  let local = await prisma.activityLocal.findMany();
+  if (!local[0]) {
+    await prisma.activityLocal.createMany({
+      data: [
+        {
+          name: 'Auditório Principal',
+        },
+        {
+          name: 'Auditório Lateral',
+        },
+        {
+          name: 'Auditório Superior',
+        },
+      ],
+    });
+
+    local = await prisma.activityLocal.findMany();
+  }
+
+  createActivitiesByDate(local[0].id, local[1].id, local[2].id);
+}
+
+async function createActivitiesByDate(localId1: number, localId2: number, localId3: number) {
+  let activitysDate = await prisma.activityDate.findMany({ include: { Activities: true } });
+
+  if (!activitysDate[0]) {
+    await prisma.activityDate.create({
+      data: {
+        date: dayjs().add(1, 'days').startOf('hour').toDate(),
+        Activities: {
+          createMany: {
+            data: [
+              {
+                name: 'Palestra de Abertura',
+                capacity: 100,
+                localId: localId1,
+                startsAt: dayjs().add(1, 'days').startOf('hour').hour(8).toDate(),
+                endsAt: dayjs().add(1, 'days').startOf('hour').hour(10).toDate(),
+              },
+              {
+                name: 'Apresentação da grade',
+                capacity: 100,
+                localId: localId1,
+                startsAt: dayjs().add(1, 'days').startOf('hour').hour(10).toDate(),
+                endsAt: dayjs().add(1, 'days').startOf('hour').hour(11).toDate(),
+              },
+              {
+                name: 'Mesa Redonda: Mundo do T.I.',
+                capacity: 10,
+                localId: localId3,
+                startsAt: dayjs().add(1, 'days').startOf('hour').hour(15).toDate(),
+                endsAt: dayjs().add(1, 'days').startOf('hour').hour(16).toDate(),
+              },
+              {
+                name: 'Lunch and Talk',
+                capacity: 100,
+                localId: localId2,
+                startsAt: dayjs().add(1, 'days').startOf('hour').hour(11).toDate(),
+                endsAt: dayjs().add(1, 'days').startOf('hour').hour(14).toDate(),
+              },
+            ],
+          },
+        },
+      },
+    });
+
+    await prisma.activityDate.create({
+      data: {
+        date: dayjs().add(2, 'days').startOf('hour').toDate(),
+        Activities: {
+          createMany: {
+            data: [
+              {
+                name: 'Minecraft: Como montar seu pc gamer',
+                capacity: 20,
+                localId: localId1,
+                startsAt: dayjs().add(2, 'days').startOf('hour').hour(8).toDate(),
+                endsAt: dayjs().add(2, 'days').startOf('hour').hour(9).toDate(),
+              },
+              {
+                name: 'LOL: Como montar seu pc gamer',
+                capacity: 10,
+                localId: localId1,
+                startsAt: dayjs().add(2, 'days').startOf('hour').hour(9).toDate(),
+                endsAt: dayjs().add(2, 'days').startOf('hour').hour(11).toDate(),
+              },
+              {
+                name: 'Palestra: Stack Overflow',
+                capacity: 10,
+                localId: localId2,
+                startsAt: dayjs().add(2, 'days').startOf('hour').hour(8).toDate(),
+                endsAt: dayjs().add(2, 'days').startOf('hour').hour(11).toDate(),
+              },
+              {
+                name: 'Mesa redonda: Bootcamps',
+                capacity: 10,
+                localId: localId3,
+                startsAt: dayjs().add(2, 'days').startOf('hour').hour(8).toDate(),
+                endsAt: dayjs().add(2, 'days').startOf('hour').hour(9).toDate(),
+              },
+              {
+                name: 'Mesa redonda: JavaScript',
+                capacity: 10,
+                localId: localId3,
+                startsAt: dayjs().add(2, 'days').startOf('hour').hour(9).toDate(),
+                endsAt: dayjs().add(2, 'days').startOf('hour').hour(10).toDate(),
+              },
+            ],
+          },
+        },
+      },
+    });
+
+    await prisma.activityDate.create({
+      data: {
+        date: dayjs().add(3, 'days').startOf('hour').toDate(),
+        Activities: {
+          createMany: {
+            data: [
+              {
+                name: 'Minecraft: Como montar seu pc gamer',
+                capacity: 40,
+                localId: localId1,
+                startsAt: dayjs().add(3, 'days').startOf('hour').hour(8).toDate(),
+                endsAt: dayjs().add(3, 'days').startOf('hour').hour(9).toDate(),
+              },
+              {
+                name: 'LOL: Como montar seu pc gamer',
+                capacity: 40,
+                localId: localId1,
+                startsAt: dayjs().add(3, 'days').startOf('hour').hour(9).toDate(),
+                endsAt: dayjs().add(3, 'days').startOf('hour').hour(11).toDate(),
+              },
+              {
+                name: 'Palestra: Stack Overflow',
+                capacity: 10,
+                localId: localId2,
+                startsAt: dayjs().add(3, 'days').startOf('hour').hour(8).toDate(),
+                endsAt: dayjs().add(3, 'days').startOf('hour').hour(11).toDate(),
+              },
+              {
+                name: 'Mesa redonda: Ganhe dinheiro fácil',
+                capacity: 2,
+                localId: localId3,
+                startsAt: dayjs().add(3, 'days').startOf('hour').hour(8).toDate(),
+                endsAt: dayjs().add(3, 'days').startOf('hour').hour(9).toDate(),
+              },
+              {
+                name: 'Mesa redonda: Start-ups',
+                capacity: 5,
+                localId: localId3,
+                startsAt: dayjs().add(3, 'days').startOf('hour').hour(9).toDate(),
+                endsAt: dayjs().add(3, 'days').startOf('hour').hour(10).toDate(),
+              },
+            ],
+          },
+        },
+      },
+    });
+
+    activitysDate = await prisma.activityDate.findMany({ include: { Activities: true } });
+  }
 }
 
 main()
