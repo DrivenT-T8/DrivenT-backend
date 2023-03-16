@@ -9,7 +9,7 @@ async function getFirstEvent(): Promise<GetFirstEventResult> {
  
   if (!event) throw notFoundError();
 
-  return event
+  return event;
 }
 
 export type GetFirstEventResult = Omit<Event, "createdAt" | "updatedAt">;
