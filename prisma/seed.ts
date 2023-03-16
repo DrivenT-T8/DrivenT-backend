@@ -21,7 +21,7 @@ async function main() {
     user = await prisma.user.create({
       data: {
         email: 'lulu@gmail.com',
-        password: "$2b$12$km1BHbhYNU5/Ha04cX1jU.ffU6u9MNVIcm6yYhZARILlY7OarzMWy" , // 123456
+        password: '$2b$12$km1BHbhYNU5/Ha04cX1jU.ffU6u9MNVIcm6yYhZARILlY7OarzMWy', // 123456
       },
     });
   }
@@ -210,70 +210,57 @@ async function main() {
   let booking = await prisma.booking.findFirst();
   if (!booking) {
     await prisma.booking.createMany({
-        data: [
-          {
+      data: [
+        {
           userId: 1,
-          roomId: 2
-
+          roomId: 2,
         },
         {
           userId: 1,
-          roomId: 2
-
+          roomId: 2,
         },
         {
           userId: 1,
-          roomId: 2
-
+          roomId: 2,
         },
         {
           userId: 1,
-          roomId: 4
-
+          roomId: 4,
         },
         {
           userId: 1,
-          roomId: 4
-
+          roomId: 4,
         },
         {
           userId: 1,
-          roomId: 11
-
+          roomId: 11,
         },
         {
           userId: 1,
-          roomId: 12
-
+          roomId: 12,
         },
         {
           userId: 1,
-          roomId: 10
-
+          roomId: 10,
         },
         {
           userId: 1,
-          roomId: 16
-
+          roomId: 16,
         },
         {
           userId: 1,
-          roomId: 20
-
+          roomId: 20,
         },
         {
           userId: 1,
-          roomId: 21
-
+          roomId: 21,
         },
         {
           userId: 1,
-          roomId: 18
-
-        }
-      
-      ]
-});
+          roomId: 18,
+        },
+      ],
+    });
   }
 }
 
