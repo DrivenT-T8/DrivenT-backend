@@ -19,7 +19,7 @@ export async function getActivityDates(req: AuthenticatedRequest, res: Response)
 }
 
 export async function getActivityByIdDate(req: AuthenticatedRequest, res: Response) {
-  const dateId = Number(req.params.eventDateId);
+  const dateId = Number(req.params.activityDateId);
 
   if (!dateId || dateId < 1) return res.sendStatus(httpStatus.BAD_REQUEST);
 
